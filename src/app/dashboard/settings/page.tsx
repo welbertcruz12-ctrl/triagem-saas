@@ -58,12 +58,6 @@ if (userData?.tenants) {
           email_from: tenantData?.email_from || "",
         });
       }
-          cnpj: userData.tenants.cnpj || "",
-          whatsapp_instance_id: userData.tenants.whatsapp_instance_id || "",
-          whatsapp_token: userData.tenants.whatsapp_token || "",
-          email_from: userData.tenants.email_from || "",
-        });
-      }
     } catch (error) {
       console.error("Erro ao carregar:", error);
     } finally {
