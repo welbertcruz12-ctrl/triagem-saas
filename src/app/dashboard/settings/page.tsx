@@ -46,14 +46,18 @@ export default function SettingsPage() {
       const { data: userData } = await supabase
         .from("users")
         .select("tenant_id, tenants(*)")
-        .eq("auth_id", user?.id)
-        .single();
-
-      if (userData?.tenants) {
-        setTenant(userData.tenants);
+if (userData?.tenants) {
+        const tenantData = Array.isArray(userData.tenants) ? userData.tenants[0] : userData.tenants;
+        setTenant(tenantData);
         setFormData({
-          company_name: userData.tenants.company_name || "",
-          phone: userData.tenants.phone || "",
+          company_name: tenantData?.company_name || "",
+          phone: tenantData?.phone || "",
+          cnpj: tenantData?.cnpj || "",
+          whatsapp_instance_id: tenantData?.whatsapp_instance_id || "",
+          whatsapp_token: tenantData?.whatsapp_token || "",
+          email_from: tenantData?.email_from || "",
+        });
+      }
           cnpj: userData.tenants.cnpj || "",
           whatsapp_instance_id: userData.tenants.whatsapp_instance_id || "",
           whatsapp_token: userData.tenants.whatsapp_token || "",
