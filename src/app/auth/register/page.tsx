@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -10,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Zap, Loader2, Check } from "lucide-react";
 
-export default function RegisterPage() {
+function RegisterContent() {
   const searchParams = useSearchParams();
   const planFromUrl = searchParams.get("plan") || "starter";
 
@@ -268,5 +269,13 @@ export default function RegisterPage() {
         </form>
       </Card>
     </div>
+  );
+} 
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <RegisterContent />
+    </Suspense>
   );
 }
