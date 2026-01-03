@@ -45,8 +45,10 @@ export default function SettingsPage() {
       const { data: { user } } = await supabase.auth.getUser();
       const { data: userData } = await supabase
         .from("users")
-        .select("tenant_id, tenants(*)")
-if (userData?.tenants) {
+.select("tenant_id, tenants(*)")
+        .eq("auth_id", user?.id)
+        .single();
+      if (userData?.tenants) {
         const tenantData = Array.isArray(userData.tenants) ? userData.tenants[0] : userData.tenants;
         setTenant(tenantData);
         setFormData({
